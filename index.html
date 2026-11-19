@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPECNOVA 99Mobiles | Worldwide Smartphone Specifications & Comparison</title>
+  <meta name="description"
+    content="Discover in-depth mobile specifications, camera breakdowns, benchmarks, prices, and side-by-side smartphone comparisons from worldwide brands.">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Bootstrap 5.3.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <!-- Custom Stylesheet (Black & White Theme) -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- Top Glassmorphism Navigation Bar -->
+  <nav class="navbar-custom">
+    <div class="container-fluid px-lg-5">
+      <div class="d-flex align-items-center justify-content-between gap-3">
+
+        <!-- Brand Logo -->
+        <a href="index.html" class="brand-logo">
+          <div class="brand-icon-box">
+            <i class="bi bi-phone-fill"></i>
+          </div>
+          <div class="d-flex flex-column">
+            <span>SPECNOVA</span>
+            <span class="brand-pill">99 MOBILES • GLOBAL</span>
+          </div>
+        </a>
+
+        <!-- Live Search Autocomplete Form -->
+        <div class="search-wrapper d-none d-md-block">
+          <div class="search-input-group">
+            <i class="bi bi-search search-icon-left"></i>
+            <input type="text" id="searchInput" class="search-input"
+              placeholder="Search phone, chipset, camera (e.g. S24 Ultra, A18 Pro)..." autocomplete="off">
+            <button type="button" id="searchClearBtn" class="search-clear-btn" aria-label="Clear Search">
+              <i class="bi bi-x-circle-fill"></i>
+            </button>
+          </div>
+          <!-- Live Autocomplete Results Container -->
+          <div id="searchResultsDropdown" class="search-results-dropdown"></div>
+        </div>
+
+        <!-- Navbar Controls & Actions -->
+        <div class="d-flex align-items-center gap-2">
+
+          <!-- Currency Selector -->
+          <select id="currencySelector" class="currency-select d-none d-sm-block" aria-label="Select Currency">
+            <option value="USD">USD ($)</option>
+            <option value="EUR">EUR (€)</option>
+            <option value="GBP">GBP (£)</option>
+            <option value="INR">INR (₹)</option>
+          </select>
+
+          <!-- Favorites Nav Button -->
+          <button type="button" class="nav-action-btn" id="favoritesNavBtn" title="Saved Favorites"
+            aria-label="Favorites">
+            <i class="bi bi-heart"></i>
+            <span class="counter-badge" id="favoritesCountBadge">0</span>
+          </button>
+
+          <!-- Compare Nav Button -->
+          <button type="button" class="nav-action-btn" id="compareNavBtn" title="Compare Devices" aria-label="Compare">
+            <i class="bi bi-arrow-left-right"></i>
+            <span class="counter-badge" id="compareCountBadge">0</span>
+          </button>
+
+          <!-- Dark / Light Theme Toggle -->
+          <button type="button" class="nav-action-btn" id="themeToggleBtn" title="Toggle Black/White Theme"
+            aria-label="Toggle Theme">
+            <i class="bi bi-sun"></i>
+          </button>
+
+          <!-- Mobile Filter Drawer Trigger -->
+          <button class="btn btn-outline-light d-lg-none rounded-pill px-3 py-1 btn-sm" type="button"
+            data-bs-toggle="offcanvas" data-bs-target="#mobileFilterDrawer">
+            <i class="bi bi-sliders me-1"></i> Filter
+          </button>
+
+        </div>
+      </div>
+
+      <!-- Mobile Search Bar (Only shown on small screens) -->
+      <div class="search-wrapper d-md-none mt-2">
+        <div class="search-input-group">
+          <i class="bi bi-search search-icon-left"></i>
+          <input type="text" class="search-input" placeholder="Search phones, specs..."
+            oninput="document.getElementById('searchInput').value=this.value; document.getElementById('searchInput').dispatchEvent(new Event('input'))">
+        </div>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- Hero Banner Section -->
+  <header class="hero-section">
+    <div class="container-fluid px-lg-5">
+      <div class="row g-4 align-items-center mb-4">
+
+        <div class="col-lg-5">
+          <div class="hero-pill">
+            <span class="dot"></span>
+            <span>2024-2025 WORLDWIDE DATABASE</span>
+          </div>
+          <h1 class="hero-title">
+            The Ultimate Mobile Spec Intelligence.
+          </h1>
+          <p class="hero-subtitle">
+            Benchmark-grade technical breakdowns, sensor matrices, 100-point spec scores, and side-by-side comparison
+            for every flagship and champion phone on Earth.
+          </p>
+
+          <div class="d-flex flex-wrap gap-2">
+            <button class="btn btn-light rounded-pill px-4 py-2 fw-bold text-dark" id="phoneFinderTrigger">
+              <i class="bi bi-compass me-1"></i> Phone Finder Quiz
+            </button>
+            <a href="#browseSection" class="btn btn-outline-light rounded-pill px-4 py-2">
+              <i class="bi bi-grid-3x3-gap me-1"></i> Browse All Devices
+            </a>
+          </div>
+        </div>
+
+        <!-- Featured Device Spotlight Card -->
+        <div class="col-lg-7">
+          <div id="featuredPhoneCard" class="hero-featured-card">
+            <!-- Rendered dynamically by JS -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Global Brands Strip -->
+      <div class="brands-strip">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <span class="mono-tag small text-secondary">Worldwide Manufacturers</span>
+          <span class="small text-secondary">Click brand to filter</span>
+        </div>
+        <div id="brandsContainer" class="d-flex gap-2 overflow-auto py-2" style="scrollbar-width: none;">
+          <!-- Rendered dynamically by JS -->
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Sticky Category Navigation Bar -->
+  <div class="category-filter-nav" id="browseSection">
+    <div class="container-fluid px-lg-5">
+      <div class="category-scroll-container" id="categoryFilterNav">
+        <button class="cat-btn active" data-category="all">
+          <i class="bi bi-grid-fill"></i> All Categories
+        </button>
+        <button class="cat-btn" data-category="Flagship">
+          <i class="bi bi-crown-fill"></i> Flagships
+        </button>
+        <button class="cat-btn" data-category="Camera King">
+          <i class="bi bi-camera-fill"></i> Camera Kings
+        </button>
+        <button class="cat-btn" data-category="Gaming">
+          <i class="bi bi-controller"></i> Gaming Beasts
+        </button>
+        <button class="cat-btn" data-category="Foldable">
+          <i class="bi bi-laptop"></i> Foldables
+        </button>
+        <button class="cat-btn" data-category="Battery Beast">
+          <i class="bi bi-battery-charging"></i> Battery Champions
+        </button>
+        <button class="cat-btn" data-category="Value for Money">
+          <i class="bi bi-tag-fill"></i> Value for Money
+        </button>
+        <button class="cat-btn" data-category="Compact">
+          <i class="bi bi-phone"></i> Compact Phones
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Area: Filter Sidebar + Phone Grid -->
+  <main class="main-wrapper">
+    <div class="container-fluid px-lg-5">
+      <div class="row g-4">
+
+        <!-- Desktop Filter Sidebar -->
+        <aside class="col-lg-3 filter-sidebar-wrapper">
+          <div class="filter-card">
+
+            <div class="filter-header">
+              <span class="fw-bold fs-6"><i class="bi bi-funnel me-1"></i> Refine Specs</span>
+              <button class="btn btn-sm btn-link text-secondary text-decoration-none p-0"
+                id="resetFiltersBtn">Reset</button>
+            </div>
+
+            <!-- Price Range Filter -->
+            <div class="filter-group">
+              <div class="filter-group-title">
+                <span>Max Budget</span>
+                <span class="mono-tag text-white" id="priceDisplay">$2,000</span>
+              </div>
+              <input type="range" class="custom-range-slider" id="priceRange" min="300" max="2000" step="50"
+                value="2000">
+              <div class="d-flex justify-content-between text-secondary mt-1" style="font-size:0.75rem;">
+                <span>$300</span>
+                <span>$1,000</span>
+                <span>$2,000+</span>
+              </div>
+            </div>
+
+            <!-- Hardware & Feature Checkboxes -->
+            <div class="filter-group">
+              <div class="filter-group-title">Must-Have Features</div>
+
+              <label class="filter-checkbox-label">
+                <input type="checkbox" class="filter-checkbox feature-filter-cb" value="5g">
+                <span>5G Network Support</span>
+              </label>
+
+              <label class="filter-checkbox-label">
+                <input type="checkbox" class="filter-checkbox feature-filter-cb" value="120hz">
+                <span>120Hz / 144Hz AMOLED</span>
+              </label>
+
+              <label class="filter-checkbox-label">
+                <input type="checkbox" class="filter-checkbox feature-filter-cb" value="wireless">
+                <span>Wireless Fast Charging</span>
+              </label>
+
+              <label class="filter-checkbox-label">
+                <input type="checkbox" class="filter-checkbox feature-filter-cb" value="ip68">
+                <span>IP68 Waterproof Ingress</span>
+              </label>
+
+              <label class="filter-checkbox-label">
+                <input type="checkbox" class="filter-checkbox feature-filter-cb" value="periscope">
+                <span>Periscope Optical Zoom</span>
+              </label>
+
+              <label class="filter-checkbox-label">
+                <input type="checkbox" class="filter-checkbox feature-filter-cb" value="jack">
+                <span>3.5mm Headphone Jack</span>
+              </label>
+
+              <label class="filter-checkbox-label">
+                <input type="checkbox" class="filter-checkbox feature-filter-cb" value="sd-card">
+                <span>Expandable MicroSD Slot</span>
+              </label>
+            </div>
+
+            <!-- Spec Score Guide Box -->
+            <div class="p-3 rounded-3 bg-dark border border-secondary mt-4">
+              <div class="fw-bold small mb-1"><i class="bi bi-shield-check text-white me-1"></i> SpecNova Score</div>
+              <p class="text-secondary mb-0" style="font-size: 0.78rem;">
+                Calculated across 40+ hardware parameters including display resolution, camera sensor size, cooling
+                efficiency, and update longevity.
+              </p>
+            </div>
+
+          </div>
+        </aside>
+
+        <!-- Right Content: Sorting & Phone Cards Grid -->
+        <section class="col-lg-9">
+
+          <!-- Listing Controls Bar -->
+          <div
+            class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4 pb-3 border-bottom border-secondary">
+            <div class="d-flex align-items-center gap-2">
+              <h2 class="h5 fw-bold mb-0">Smartphone Catalog</h2>
+              <span class="badge bg-secondary text-white rounded-pill px-2" id="phoneCountBadge">12 Devices</span>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 ms-auto">
+              <label for="sortSelect" class="text-secondary small d-none d-sm-block">Sort by:</label>
+              <select id="sortSelect" class="currency-select">
+                <option value="popular">Most Popular</option>
+                <option value="score-high">Highest Spec Score</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="rating">Highest User Rating</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Dynamic Phone Cards Grid -->
+          <div class="row g-4" id="phoneGrid">
+            <!-- Rendered dynamically by js/app.js -->
+          </div>
+
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Mobile Offcanvas Filter Drawer -->
+  <div class="offcanvas offcanvas-start bg-dark text-white border-end border-secondary" tabindex="-1"
+    id="mobileFilterDrawer">
+    <div class="offcanvas-header border-bottom border-secondary">
+      <h5 class="offcanvas-title fw-bold"><i class="bi bi-sliders me-1"></i> Filter Smartphones</h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <!-- Duplicate controls dynamically synced via app.js -->
+      <div class="mb-4">
+        <label class="form-label fw-bold small text-uppercase text-secondary">Currency</label>
+        <select class="form-select bg-black text-white border-secondary"
+          onchange="document.getElementById('currencySelector').value=this.value; document.getElementById('currencySelector').dispatchEvent(new Event('change'))">
+          <option value="USD">USD ($)</option>
+          <option value="EUR">EUR (€)</option>
+          <option value="GBP">GBP (£)</option>
+          <option value="INR">INR (₹)</option>
+        </select>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label fw-bold small text-uppercase text-secondary">Must-Have Features</label>
+        <div class="d-flex flex-column gap-2">
+          <label class="filter-checkbox-label">
+            <input type="checkbox" class="filter-checkbox" onchange="syncMobileCb('5g', this.checked)">
+            <span>5G Network Support</span>
+          </label>
+          <label class="filter-checkbox-label">
+            <input type="checkbox" class="filter-checkbox" onchange="syncMobileCb('120hz', this.checked)">
+            <span>120Hz / 144Hz AMOLED</span>
+          </label>
+          <label class="filter-checkbox-label">
+            <input type="checkbox" class="filter-checkbox" onchange="syncMobileCb('wireless', this.checked)">
+            <span>Wireless Fast Charging</span>
+          </label>
+          <label class="filter-checkbox-label">
+            <input type="checkbox" class="filter-checkbox" onchange="syncMobileCb('ip68', this.checked)">
+            <span>IP68 Waterproof Ingress</span>
+          </label>
+          <label class="filter-checkbox-label">
+            <input type="checkbox" class="filter-checkbox" onchange="syncMobileCb('periscope', this.checked)">
+            <span>Periscope Optical Zoom</span>
+          </label>
+          <label class="filter-checkbox-label">
+            <input type="checkbox" class="filter-checkbox" onchange="syncMobileCb('jack', this.checked)">
+            <span>3.5mm Headphone Jack</span>
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-light w-100 rounded-pill fw-bold text-dark mt-4" data-bs-dismiss="offcanvas">
+        Apply Filters
+      </button>
+    </div>
+  </div>
+
+  <!-- Persistent Floating Comparison Dock -->
+  <div id="compareDock" class="compare-dock">
+    <div class="d-flex align-items-center gap-2">
+      <span class="mono-tag small text-secondary d-none d-md-block">Compare:</span>
+      <div id="dockSlots" class="dock-slots">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+    <div class="d-flex align-items-center gap-2">
+      <button class="btn btn-light btn-sm rounded-pill px-3 fw-bold text-dark" id="dockCompareBtn">
+        <i class="bi bi-arrow-left-right me-1"></i> Compare Now
+      </button>
+      <button class="btn btn-outline-secondary btn-sm rounded-circle p-1" id="dockClearBtn" title="Clear All Slots"
+        style="width: 28px; height: 28px;">
+        <i class="bi bi-trash"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Full Technical Specifications Modal (91mobiles & GSMArena Style) -->
+  <div class="modal fade" id="specModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered">
+      <div class="modal-content custom-modal-content" id="specModalContent">
+        <!-- Injected dynamically by window.SpecNova.openSpecModal -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Side-by-Side Comparison Matrix Modal -->
+  <div class="modal fade" id="compareModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content custom-modal-content" id="compareModalContent">
+        <!-- Injected dynamically by window.SpecNova.renderCompareMatrix -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Phone Finder Quiz Modal -->
+  <div class="modal fade" id="phoneFinderModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content custom-modal-content">
+        <div class="custom-modal-header">
+          <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-compass fs-4"></i>
+            <h5 class="fw-bold mb-0">Smartphone Match Wizard</h5>
+          </div>
+          <button type="button" class="modal-close-btn" data-bs-dismiss="modal">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+        <div class="modal-body p-4">
+          <p class="text-secondary small mb-4">Select your primary lifestyle requirement and budget to instantly unlock
+            your ideal smartphone match:</p>
+
+          <button class="quiz-option-btn" onclick="window.SpecNova.handleQuizSelection('Camera King', 1400)">
+            <i class="bi bi-camera-fill fs-4"></i>
+            <div>
+              <div class="fw-bold">Professional Mobile Photography</div>
+              <small class="text-secondary">Large 1-inch sensors, periscope telephoto zoom, optical RAW capture</small>
+            </div>
+          </button>
+
+          <button class="quiz-option-btn" onclick="window.SpecNova.handleQuizSelection('Gaming', 1200)">
+            <i class="bi bi-controller fs-4"></i>
+            <div>
+              <div class="fw-bold">Heavy Competitive Gaming</div>
+              <small class="text-secondary">165Hz displays, shoulder triggers, advanced liquid vapor cooling</small>
+            </div>
+          </button>
+
+          <button class="quiz-option-btn" onclick="window.SpecNova.handleQuizSelection('Battery Beast', 900)">
+            <i class="bi bi-battery-charging fs-4"></i>
+            <div>
+              <div class="fw-bold">Maximum Battery Endurance</div>
+              <small class="text-secondary">5400mAh+ Silicon-Carbon cells, 100W+ rapid charging</small>
+            </div>
+          </button>
+
+          <button class="quiz-option-btn" onclick="window.SpecNova.handleQuizSelection('Value for Money', 600)">
+            <i class="bi bi-piggy-bank-fill fs-4"></i>
+            <div>
+              <div class="fw-bold">Best Value Flagship Killer (Under $600)</div>
+              <small class="text-secondary">Top tier flagship processors without the luxury premium price tag</small>
+            </div>
+          </button>
+
+          <button class="quiz-option-btn" onclick="window.SpecNova.handleQuizSelection('Foldable', 2000)">
+            <i class="bi bi-laptop fs-4"></i>
+            <div>
+              <div class="fw-bold">Next-Gen Foldable Productivity</div>
+              <small class="text-secondary">Tablet-sized inner display for split-screen power multitasking</small>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container-custom"></div>
+
+  <!-- Mobile Bottom Navigation Bar -->
+  <div class="mobile-bottom-nav">
+    <a href="#" class="mobile-nav-item active">
+      <i class="bi bi-house-door"></i>
+      <span>Home</span>
+    </a>
+    <a href="#browseSection" class="mobile-nav-item">
+      <i class="bi bi-grid"></i>
+      <span>Explore</span>
+    </a>
+    <a href="javascript:void(0)" class="mobile-nav-item" onclick="window.SpecNova.renderCompareMatrix()">
+      <i class="bi bi-arrow-left-right"></i>
+      <span>Compare</span>
+    </a>
+    <a href="javascript:void(0)" class="mobile-nav-item" onclick="document.getElementById('favoritesNavBtn').click()">
+      <i class="bi bi-heart"></i>
+      <span>Saved</span>
+    </a>
+  </div>
+
+  <!-- Footer Section -->
+  <footer class="footer-custom">
+    <div class="container-fluid px-lg-5">
+      <div class="row g-4 mb-4">
+
+        <div class="col-lg-4">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <div class="brand-icon-box" style="width: 30px; height: 30px; font-size: 0.95rem;">
+              <i class="bi bi-phone-fill"></i>
+            </div>
+            <span class="fw-bold fs-5 text-white">SPECNOVA</span>
+          </div>
+          <p class="text-secondary small mb-3">
+            The world's premier monochrome smartphone specification database. Inspired by the depth of 91mobiles &
+            GSMArena, built with pure classic aesthetics, instant responsive filtering, and side-by-side technical
+            evaluation.
+          </p>
+          <div class="text-secondary" style="font-size: 0.8rem;">
+            Designed strictly with HTML, CSS, Bootstrap 5.3 & Vanilla JavaScript.
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-6">
+          <div class="fw-bold text-white small text-uppercase mb-3">Top Brands</div>
+          <a href="javascript:void(0)" class="footer-link" onclick="window.SpecNova.resetFilters()">All Brands</a>
+          <a href="javascript:void(0)" class="footer-link"
+            onclick="document.querySelector('[data-brand=apple]').click()">Apple iPhone</a>
+          <a href="javascript:void(0)" class="footer-link"
+            onclick="document.querySelector('[data-brand=samsung]').click()">Samsung Galaxy</a>
+          <a href="javascript:void(0)" class="footer-link"
+            onclick="document.querySelector('[data-brand=google]').click()">Google Pixel</a>
+          <a href="javascript:void(0)" class="footer-link"
+            onclick="document.querySelector('[data-brand=xiaomi]').click()">Xiaomi Leica</a>
+        </div>
+
+        <div class="col-lg-2 col-6">
+          <div class="fw-bold text-white small text-uppercase mb-3">Categories</div>
+          <a href="javascript:void(0)" class="footer-link"
+            onclick="document.querySelector('[data-category=Flagship]').click()">Flagship Phones</a>
+          <a href="javascript:void(0)" class="footer-link"
+            onclick="document.querySelector('[data-category=\'Camera King\']').click()">Camera Kings</a>
+          <a href="javascript:void(0)" class="footer-link"
+            onclick="document.querySelector('[data-category=Gaming]').click()">Gaming Phones</a>
+          <a href="javascript:void(0)" class="footer-link"
+            onclick="document.querySelector('[data-category=Foldable]').click()">Foldable Screens</a>
+          <a href="javascript:void(0)" class="footer-link"
+            onclick="document.querySelector('[data-category=\'Value for Money\']').click()">Flagship Killers</a>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="fw-bold text-white small text-uppercase mb-3">Spec Score Benchmark</div>
+          <p class="text-secondary small mb-3">
+            Every device in our catalog receives an objective 100-point rating derived from sensor dimensions, CPU
+            throttling resistance, peak nit luminance, and guaranteed OS version roadmaps.
+          </p>
+          <div class="d-flex gap-2">
+            <button class="btn btn-outline-light btn-sm rounded-pill px-3" onclick="window.SpecNova.startPhoneFinder()">
+              <i class="bi bi-compass me-1"></i> Launch Match Wizard
+            </button>
+            <button class="btn btn-secondary btn-sm rounded-pill px-3"
+              onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+              <i class="bi bi-arrow-up"></i> Top
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div
+        class="pt-4 border-top border-secondary d-flex flex-wrap align-items-center justify-content-between gap-2 text-secondary"
+        style="font-size:0.8rem;">
+        <div>&copy; 2024-2025 SPECNOVA / 99Mobiles. All specifications cross-referenced with manufacturer data.</div>
+        <div class="mono-tag">PRECISION • CLARITY • SPEED</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Helper for Mobile Checkbox Sync -->
+  <script>
+    function syncMobileCb(val, isChecked) {
+      const desktopCb = document.querySelector(`.feature-filter-cb[value="${val}"]`);
+      if (desktopCb) {
+        desktopCb.checked = isChecked;
+        desktopCb.dispatchEvent(new Event('change'));
+      }
+    }
+  </script>
+
+  <!-- Bootstrap 5.3.3 Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Smartphone Database Data Script -->
+  <script src="js/data.js"></script>
+
+  <!-- Application Engine Script -->
+  <script src="js/app.js"></script>
+</body>
+
+</html>
